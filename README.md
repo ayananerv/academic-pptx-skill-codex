@@ -1,10 +1,13 @@
-# Academic Presentations Skill for Claude (plus basic PDF summary of general advice)
+# Academic Presentations Skill for Codex
 
-A Claude Skill for creating high-quality academic presentations: conference talks, seminar slides, thesis defenses, and grant briefings.  Also includes a PDF which summarizes the advice (does not require use of Claude). 
+A Codex skill for creating high-quality academic presentations: conference
+talks, seminar slides, thesis defenses, and grant briefings. It includes a
+PDF summary of the presentation advice, but the PDF is optional.
 
 ## What It Does
 
-This skill overrides Claude's default design-forward presentation style and replaces it with communication-first standards appropriate for academic and analytical contexts. When active, Claude will:
+This skill gives Codex communication-first standards appropriate for academic
+and analytical contexts. When active, Codex will:
 
 - Write every slide title as a **complete sentence stating the takeaway** ("action title"), not a topic label
 - Structure the deck as a **logical argument** (situation → complication → resolution), not a collection of independent slides
@@ -16,33 +19,95 @@ This skill overrides Claude's default design-forward presentation style and repl
 
 ## Installation
 
-1. Download this repository as a zip file (click **Code → Download ZIP** above)
-2. In [claude.ai](https://claude.ai), go to **Customize → Skills**
-3. Upload the zip file
-4. Confirm the skill appears in your skills list and is toggled on
+Codex skills are directories containing `SKILL.md` and any supporting files.
+For a project-only installation, place this repository's contents at
+`.agents/skills/academic-pptx/` in the project root. For a user-level
+installation, place them at `$CODEX_HOME/skills/academic-pptx/`; when
+`CODEX_HOME` is unset, Codex uses `~/.codex/skills/`.
 
-> **Requirement:** Code execution and file creation must be enabled in **Settings → Capabilities**.
+The copy must include `SKILL.md`, `content_guidelines.md`, `slide_patterns.md`,
+and `agents/openai.yaml`. Exclude the clone's `.git` metadata. After
+installing, start a new Codex turn so the skill index can refresh. The
+copy-and-verify prompts below automate both variants.
+
+### Prompt: install as a project-level skill
+
+Paste this prompt into an AI agent from the root of the project where the
+skill should be available:
+
+```text
+Install the academic-pptx Codex skill for this project.
+
+1. Clone https://github.com/ayananerv/academic-pptx-skill-codex.git into a
+   temporary directory (shallow clone is fine).
+2. Copy the skill files, including SKILL.md, content_guidelines.md,
+   slide_patterns.md, and agents/openai.yaml, into
+   .agents/skills/academic-pptx/ relative to the current project root.
+   Exclude the clone's .git metadata.
+3. Do not create a nested academic-pptx-skill-codex directory inside the
+   destination. Do not overwrite an existing destination without first
+   inspecting it and receiving explicit approval.
+4. Verify that .agents/skills/academic-pptx/SKILL.md exists and that its
+   frontmatter name is academic-pptx.
+5. Report the installed path and remind me to start a new Codex turn.
+
+Use only the repository files needed by this skill; do not modify unrelated
+project files.
+```
+
+### Prompt: install as a user-level skill
+
+Paste this prompt into an AI agent when the skill should be available across
+projects for the current user:
+
+```text
+Install the academic-pptx Codex skill for my user account.
+
+1. Clone https://github.com/ayananerv/academic-pptx-skill-codex.git into a
+   temporary directory (shallow clone is fine).
+2. Set the destination to
+   ${CODEX_HOME:-$HOME/.codex}/skills/academic-pptx and create its parent
+   directory if needed.
+3. Copy the skill files, including SKILL.md, content_guidelines.md,
+   slide_patterns.md, and agents/openai.yaml, into that destination.
+   Exclude the clone's .git metadata.
+4. Do not create a nested academic-pptx-skill-codex directory inside the
+   destination. Do not overwrite an existing destination without first
+   inspecting it and receiving explicit approval.
+5. Verify that
+   ${CODEX_HOME:-$HOME/.codex}/skills/academic-pptx/SKILL.md exists and that
+   its frontmatter name is academic-pptx.
+6. Report the installed path and remind me to start a new Codex turn.
+
+Use only the repository files needed by this skill; do not modify unrelated
+files.
+```
 
 ## Usage
 
-Just ask naturally:
+Just ask Codex naturally:
 
 - *"Make slides for my conference paper on X"*
 - *"Build a deck for my thesis defense"*
 - *"Create a seminar presentation about my research on Y"*
 
-Claude will detect the academic context, load this skill automatically, and apply all guidelines before generating any slides. You do not need to give any special instructions.
+Codex can detect the academic context and load this skill automatically when
+it is installed and discoverable. You do not need to give any special
+instructions.
 
-This skill works alongside Anthropic's built-in PPTX skill, which handles the technical file generation. This skill handles content, argument structure, and design standards.
+This skill handles content, argument structure, and design standards. Use a
+compatible PPTX skill or the project's existing PPTX toolchain for technical
+file generation and visual QA.
 
 ## File Structure
 
 ```
-academic-pptx-skill/
+academic-pptx/
 ├── SKILL.md                  # Entry point: routing logic and design standards
 ├── content_guidelines.md     # Argument structure, action titles, citations, deck architecture
 ├── slide_patterns.md         # Per-slide-type implementation patterns with PptxGenJS code
-└── README.md                 # This file
+├── agents/openai.yaml        # Optional Codex UI metadata
+└── README.md                 # This file (repository documentation)
 ```
 
 ## Background
@@ -51,7 +116,7 @@ The guidelines in this skill draw on:
 - Barbara Minto's *Pyramid Principle* (structured argument, action titles)
 - Naegle (2021), "Ten simple rules for effective presentation slides," *PLOS Computational Biology*
 - Standard consulting and academic presentation practice (McKinsey, conference norms)
-- Community feedback on Claude's default presentation behaviour in professional contexts
+- Community feedback on common AI presentation behaviour in professional contexts
 
 ## License
 

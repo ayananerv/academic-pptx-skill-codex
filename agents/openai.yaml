@@ -1,0 +1,6 @@
+interface:
+  display_name: "Academic Presentations"
+  short_description: "Build evidence-first academic presentations"
+  default_prompt: "Use $academic-pptx to plan and build an evidence-first academic presentation."
+policy:
+  allow_implicit_invocation: true

@@ -1,19 +1,30 @@
 ---
 name: academic-pptx
-description: "Use this skill whenever the user wants to create or improve a presentation for an academic context — conference papers, seminar talks, thesis defenses, grant briefings, lab meetings, invited lectures, or any presentation where the audience will evaluate reasoning and evidence. Triggers include: 'conference talk', 'seminar slides', 'thesis defense', 'research presentation', 'academic deck', 'academic presentation'. Also triggers when the user asks to 'make slides' in combination with academic content (e.g., 'make slides for my paper on X', 'create a presentation for my dissertation defense', 'build a deck for my grant proposal'). This skill governs CONTENT and STRUCTURE decisions. For the technical work of creating or editing the .pptx file itself, also read the pptx SKILL.md."
-license: Proprietary. LICENSE.txt has complete terms
+description: "Use this skill whenever the user wants to create or improve a presentation for an academic context — conference papers, seminar talks, thesis defenses, grant briefings, lab meetings, invited lectures, or any presentation where the audience will evaluate reasoning and evidence. Triggers include: 'conference talk', 'seminar slides', 'thesis defense', 'research presentation', 'academic deck', 'academic presentation'. Also triggers when the user asks to 'make slides' in combination with academic content (e.g., 'make slides for my paper on X', 'create a presentation for my dissertation defense', 'build a deck for my grant proposal'). This skill governs CONTENT and STRUCTURE decisions. For technical .pptx creation or editing, also read a compatible PPTX skill when one is installed."
+license: MIT. See LICENSE for complete terms
 ---
 
-# Academic Presentations Skill
+# Academic Presentations Skill for Codex
+
+This is a Codex skill. When it is selected, use the rules below as the
+content, argument-structure, and design layer for academic presentations.
+Resolve links relative to this skill directory so the supporting files remain
+available after a project-level or user-level installation.
 
 ## How This Skill Works
 
 This skill has two layers:
 
 1. **This file** — governs content, argument structure, and design standards for academic presentations. Read it fully before planning any slides.
-2. **PPTX skill** — governs the technical implementation (creating, editing, and QA-ing the .pptx file). Read it too.
+2. **PPTX implementation guidance** — governs the technical implementation
+   (creating, editing, and QA-ing the `.pptx` file). If a compatible PPTX
+   skill is installed in the current Codex environment, read its `SKILL.md`
+   and the relevant technical references too. If it is not available, use the
+   project's existing PPTX toolchain and follow the QA requirements below.
 
-**Always read both before writing any code or creating any files.**
+**Always read this file and the relevant supporting files before planning a
+deck. Read the compatible PPTX skill as well when it is available, before
+writing code or creating files.**
 
 ---
 
@@ -23,8 +34,8 @@ This skill has two layers:
 |------|-------|
 | Content planning, argument structure, slide-by-slide rules | [content_guidelines.md](content_guidelines.md) |
 | Per-slide-type patterns (title, methods, results, etc.) | [slide_patterns.md](slide_patterns.md) |
-| Technical creation from scratch | PPTX skill → `pptxgenjs.md` |
-| Technical editing of an existing file | PPTX skill → `editing.md` |
+| Technical creation from scratch | Compatible PPTX skill, if installed → `pptxgenjs.md` |
+| Technical editing of an existing file | Compatible PPTX skill, if installed → `editing.md` |
 
 ---
 
@@ -44,7 +55,9 @@ Follow [content_guidelines.md](content_guidelines.md) in full.
 
 Use for: public engagement talks, science communication to non-specialist audiences, funding pitches to lay panels, event keynotes.
 
-Follow the PPTX skill's design-forward guidelines. Argument structure still matters, but visual storytelling and emotional engagement take priority.
+Follow the compatible PPTX skill's design-forward guidelines when that skill
+is available. Argument structure still matters, but visual storytelling and
+emotional engagement take priority.
 
 ### When in doubt
 
@@ -104,7 +117,8 @@ Single font face. Use size and weight for hierarchy — never multiple typefaces
 
 ## Step 4: Build and QA
 
-Follow the PPTX skill's QA procedure in full, including:
+Follow the compatible PPTX skill's QA procedure in full when it is available,
+including:
 - Content QA via `markitdown`
 - Visual QA via slide images (subagents if available)
 - Fix-and-verify loop until a full pass reveals no new issues
@@ -145,7 +159,7 @@ Academic QA checklist:
 
 ## Dependencies
 
-Same as PPTX skill:
+Typical dependencies for the PPTX toolchain:
 - `pip install "markitdown[pptx]"` — text extraction
 - `npm install -g pptxgenjs` — creating from scratch
 - LibreOffice (`soffice`) — PDF conversion
